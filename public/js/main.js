@@ -19,11 +19,6 @@ function meu_callback(conteudo) {
     cidade.value = conteudo.localidade;
     estado.value = conteudo.uf;
 
-    logradouro.disabled = true;
-    bairro.disabled = true;
-    cidade.disabled = true;
-    estado.disabled = true;
-
     numero.focus();
   } //end if.
   else {
