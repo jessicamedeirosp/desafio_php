@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 text-uppercase">
+            <h5>Filha de Pagamento</h5>
+        </div>
+        <div class="col-sm-4 text-right">
+            <form action="/gerarPdf" method="post">
+                <input type="hidden" name="id" value="<?= $this->view->relatorio[0]['id'] ?>">
+                <button class="btn btn-primary btn-block">Gerar PDF</button>
+            </form>
+        </div>
+        <div class="col-sm-4 text-right">
+            <form action="/json" method="get">
+                <input type="hidden" name="id" value="<?= $this->view->relatorio[0]['id'] ?>">
+                <button class="btn btn-primary btn-block">Gerar JSON</button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-1 mb-1">
+        <div class="col-12">
+            <?php
+            if (isset($this->view->cadastro)) {
+
+                if ($this->view->cadastro['codigo'] == 0 && $this->view->cadastro['contador'] == 1) {
+                    $cssClasse = 'alert-danger';
+                } else {
+                    $cssClasse = 'alert-success';
+                } ?>
+                <div class="alert <?= $cssClasse ?>" role="alert">
+                    <?= $this->view->cadastro['mensagem'] ?>
+                </div>
+            <?php  }  ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive" style="border:1px solid #cacaca">
+
+                <table class="table table-borderless">
+
+                    <tbody>
+                        <?php
+
+                        foreach ($this->view->relatorio as $r) {
+                        ?>
+                            <tr>
+                                <td class="text-uppercase"><?= $r['nome']; ?></td>
+                                <td><b>RG:</b> <b><?= $r['rg']; ?></td>
+                                <td><b>CPF:</b> <?= $r['cpf']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>Dt Nasc:</b> <?= date('d/m/Y', strtotime($r['data_nascimento'])); ?></td>
+                                <td colspan="2"><b>Cargo:</b> <?= $r['cargo_nome']; ?> </td>
+                            </tr>
+                            <tr>
+                                <td>Salário Bruto</td>
+                                <td colspan="2" class="text-right">R$ <?= $r['salario_bruto']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>FGTS</td>
+                                <td colspan="2" class="text-right">R$ <?= $r['fgts']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>INSS</td>
+                                <td colspan="2" class="text-right">R$ <?= $r['inss']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>IR</td>
+                                <td colspan="2" class="text-right">R$ <?= $r['ir']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Sálario Líquido</td>
+                                <td colspan="2" class="text-right">R$ <?= $r['salario_liquido']; ?></td>
+                            </tr>
+
+                        <?php  }   ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+
+</div>

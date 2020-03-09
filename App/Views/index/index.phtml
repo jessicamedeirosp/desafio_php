@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6 text-uppercase">
+            <h5>Colaboradores</h5>
+        </div>
+        <div class="col-6 text-right"><a href="/colaborador" class="btn btn-primary">Novo</a></div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-12">
+            <?php
+            if (isset($this->view->cadastro)) {
+
+                if ($this->view->cadastro['codigo'] == 0 && $this->view->cadastro['contador'] == 1) {
+                    $cssClasse = 'alert-danger';
+                } else {
+                    $cssClasse = 'alert-success';
+                } ?>
+                <div class="alert <?= $cssClasse ?>" role="alert">
+                    <?= $this->view->cadastro['mensagem'] ?>
+                </div>
+            <?php  }  ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+
+                <table class="table table-bordered">
+                    <thead class="bg-primary color-white">
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>RG</th>
+                            <th>CPF</th>
+                            <th>Data de Nascimento</th>
+                            <th>Cargo</th>
+                            <th>Sálario Bruto</th>
+                            <th>Endereço</th>
+                            <th>Ficha Pgto</th>
+
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        foreach ($this->view->colaboradores as $colaborador) {
+                        ?>
+                            <tr>
+                                <td><?= $colaborador['id']; ?></td>
+                                <td><?= $colaborador['nome']; ?></td>
+                                <td><?= $colaborador['rg']; ?></td>
+                                <td><?= $colaborador['cpf']; ?></td>
+                                <td><?= date('d/m/Y', strtotime($colaborador['data_nascimento'])); ?></td>
+                                <td><?= $colaborador['cargo_nome']; ?> </td>
+                                <td><?= $colaborador['salario_bruto']; ?></td>
+                                <td><?= $colaborador['logradouro'] . ', nº' . $colaborador['numero'] . ' - ' . $colaborador['bairro'] . ' | ' . $colaborador['cidade'] . '/' . $colaborador['estado'] ?></td>
+                                <td class="text-center">
+                                    <form action="/relatorio" method="post">
+                                        <input type="hidden" value="<?= $colaborador['id']; ?>" name="id">
+                                        <button type="submit" class="btn btn-primary text-uppercase">Ver</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        <?php  }   ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+
+</div>
